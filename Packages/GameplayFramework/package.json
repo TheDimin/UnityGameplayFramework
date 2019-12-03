@@ -1,0 +1,15 @@
+{
+    "name": "com.thedimin.gf",
+    "version": "1.0.0-DEV",
+    "displayName": "Gameplay Framework",
+    "description": "Base framework defining players,gamemodes and more",
+    "unity": "2019.3",
+    "unityRelease": "0b5",
+    "dependencies": {
+      "com.unity.inputsystem": "1.0.0"
+   },
+    "author": {
+      "name": "Damian van Hoorn",
+      "email": "d.p.hoorn@outlook.com"
+    }
+  }
