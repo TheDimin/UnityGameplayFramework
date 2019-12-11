@@ -21,21 +21,21 @@ namespace GameplayFramework.Editor
                 editorInstance.titleContent = new GUIContent("GameExplorer");
             }
 
-            GameSettings settings = FindObjectOfType<GameSettings>();
-            if(settings == null)
+            GameDefaults settings = FindObjectOfType<GameDefaults>();
+            if (settings == null)
             {
-                settings = Resources.Load<GameSettings>("GameSettings");
+                settings = Resources.Load<GameDefaults>("GameSettings");
 
             }
 
-            
+
 
             //in case a user deleted the settings object
             if (settings == null)
             {
                 Debug.LogWarning("Created new instance of gameSettings");
-                settings = CreateInstance<GameSettings>();
-                
+                settings = CreateInstance<GameDefaults>();
+
                 if (!AssetDatabase.IsValidFolder("Assets/Resources"))
                 {
                     AssetDatabase.CreateFolder("Assets", "Resources");
@@ -46,23 +46,23 @@ namespace GameplayFramework.Editor
             }
 
             Debug.Log($"pre:{settings.gamemode != null}");
-            settings.gamemode = new GamemodeBase();
+            // settings.gamemode = new GamemodeBase<>();
 
 
-            Debug.Log($"preLUL:{settings.a}");
-            settings.a = "ree";
-            Debug.Log($"postLUL:{settings.a}");
-            Debug.Log($"post:{settings.gamemode != null}");
-            EditorUtility.SetDirty(settings);
+            //Debug.Log($"preLUL:{settings.a}");
+            //settings.a = "ree";
+            //Debug.Log($"postLUL:{settings}");
+            //Debug.Log($"post:{settings.gamemode != null}");
+           // EditorUtility.SetDirty(settings);
 
-            AssetDatabase.SaveAssets();
+            //AssetDatabase.SaveAssets();
 
             editorInstance.Show();
         }
 
         private void OnGUI()
         {
-            GUILayout.Label("test");
+            GUILayout.Label("WIP");
 
         }
     }

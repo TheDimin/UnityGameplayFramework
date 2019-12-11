@@ -2,17 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControllerBase : MonoBehaviour
+namespace GameplayFramework.Core
 {
-    // Start is called before the first frame update
-    void Start()
+    public abstract class PlayerControllerBase : ControllerBase
     {
         
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

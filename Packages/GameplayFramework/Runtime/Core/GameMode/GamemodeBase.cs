@@ -1,9 +1,71 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
+using GameplayFramework.Core.Internal;
 
-[System.Serializable]
-public class GamemodeBase
+namespace GameplayFramework.Core
 {
-    public string reeee = "Aaafs";
+    public abstract class GamemodeBase
+    {
+        static GamemodeBase gamemode;
+
+        private List<PlayerControllerBase> playercontrollers = new List<PlayerControllerBase>();
+        private MapData mapData;
+
+        public void RegisterPlayerController(PlayerControllerBase playerController)
+        {
+            if (!gamemode.playercontrollers.Contains(playerController))
+            {
+                gamemode.playercontrollers.Add(playerController);
+                SpawnPlayer(playerController);
+            }
+        }
+
+        public static PlayerControllerBase GetPlayerController(int index = 0)
+        {
+            return gamemode.playercontrollers[index];
+        }
+
+        public static PlayerControllerType GetPlayerController<PlayerControllerType>(int index = 0) where PlayerControllerType : PlayerControllerBase
+        {
+            return (GetPlayerController(index) as PlayerControllerType);
+        }
+
+        static internal void RegisterSpawn(SpawnPoint spawnPoint)
+        {
+            gamemode.mapData.RegisterSpawnPoint(spawnPoint);
+        }
+
+
+        public void SpawnPlayer(PlayerControllerBase playercontroller)
+        {
+            //get prefab
+            GameObject obj = GameObject.Instantiate(Game.GetGameDefaults().PlayerPawn);
+            PawnBase pawn = obj.GetComponent<PawnBase>();
+            playercontroller.Posses(pawn);
+
+            SpawnPoint pawnSpawnLocation;
+            if (mapData.FindSpawnPointForPawn(pawn, out pawnSpawnLocation))
+            {
+                Transform spawnTransform = pawnSpawnLocation.GetSpawnPoint;
+                obj.transform.position = spawnTransform.position;
+                obj.transform.rotation = spawnTransform.rotation;
+            }
+        }
+
+        private void OnSceneUnloaded(Scene scene)
+        {
+            mapData.CollectGarbage();
+        }
+        internal void Start()
+        {
+            SceneManager.sceneUnloaded += OnSceneUnloaded;
+            mapData = new MapData();
+            gamemode = this;
+        }
+
+
+    }
 }

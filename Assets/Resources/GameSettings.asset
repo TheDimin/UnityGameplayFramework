@@ -12,6 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4056c8afede03043a1c85e7968c1060, type: 3}
   m_Name: GameSettings
   m_EditorClassIdentifier: 
-  gamemode:
-    reeee: Aaafs
-  a: ree
+  PlayerPawn: {fileID: 4694361333368599038, guid: a56d9395cff431942b31d96c1bb179f0,
+    type: 3}
