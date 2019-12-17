@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameplayFramework.Core.Internal.State;
+using GameplayFramework.State;
 
 namespace GameplayFramework.Core.Internal
 {
@@ -10,19 +12,26 @@ namespace GameplayFramework.Core.Internal
     {
         private static Game game;
 
-        public GamemodeBase gameMode { get; private set; }
-        public GameDefaults gameDefaults { get; private set; }
+        public StateManagerBase<GameStateBase> gameStateManager { get; private set; }
+        public GameDefaults defaults { get; private set; } 
 
         private Game()
         {
             game = this;
 
-            gameDefaults = Resources.Load("GameSettings") as GameDefaults;
+            defaults = Resources.Load("GameSettings") as GameDefaults;
 
-            gameMode = new ExampleGameMode();
-            gameMode.Start();
+            gameStateManager = new StateManagerBase<GameStateBase>();
+            RegisterGameStates();
+        }
 
-            gameMode.RegisterPlayerController(new ExamplePlayerController());
+        private void RegisterGameStates()
+        {
+            gameStateManager.RegisterState(new MainMenuState(this));
+            gameStateManager.RegisterState(new GameActiveState(this));
+            //TODO
+            // RegisterState(new GamePausedState());
+            gameStateManager.RegisterState(new EndGameState(this));
         }
 
         /// <summary>
@@ -36,16 +45,23 @@ namespace GameplayFramework.Core.Internal
 
         }
 
-
-
-        //Bad coding practice should be reworked at some point
-        public static GamemodeBase GetGamemode()
+        /// <summary>
+        /// Find the current gameState
+        /// </summary>
+        /// <returns></returns>
+        public static GameStateBase FindState()
         {
-            return game.gameMode;
+            return game.gameStateManager.GetState();
         }
-        public static GameDefaults GetGameDefaults()
+
+        /// <summary>
+        /// find gamestate of type
+        /// </summary>
+        /// <typeparam name="GameState"></typeparam>
+        /// <returns></returns>
+        public static GameState FindState<GameState>() where GameState : GameStateBase
         {
-            return game.gameDefaults;
+            return game.gameStateManager.FindState<GameState>();
         }
     }
 }

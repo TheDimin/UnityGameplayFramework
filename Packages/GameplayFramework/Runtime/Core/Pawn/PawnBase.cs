@@ -7,7 +7,7 @@ namespace GameplayFramework.Core
     public abstract class PawnBase : MonoBehaviour
     {
 
-        protected Camera camera { get; private set; }
+        protected new Camera camera { get; private set; }
         private ControllerBase controller;
 
         protected virtual void OnPossessed(ControllerBase controller) { }

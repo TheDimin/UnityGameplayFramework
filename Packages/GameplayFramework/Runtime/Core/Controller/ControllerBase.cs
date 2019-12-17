@@ -4,14 +4,16 @@ using UnityEngine;
 
 namespace GameplayFramework.Core
 {
-    public class ControllerBase
+    public abstract class ControllerBase
     {
         private PawnBase possedPawn;
 
         public ControllerBase()
         {
-
+            
         }
+
+        public abstract void Awake();
 
         public void Posses(PawnBase targetPawn)
         {

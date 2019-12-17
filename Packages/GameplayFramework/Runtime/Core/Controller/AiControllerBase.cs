@@ -1,18 +1,12 @@
-﻿using System.Collections;
+﻿using GameplayFramework.Core;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AiControllerBase : MonoBehaviour
+public class AiControllerBase : ControllerBase
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void Awake()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        throw new System.NotImplementedException();
     }
 }

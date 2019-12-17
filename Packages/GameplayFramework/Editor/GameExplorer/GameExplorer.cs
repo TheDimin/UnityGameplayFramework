@@ -45,7 +45,7 @@ namespace GameplayFramework.Editor
                 AssetDatabase.CreateAsset(settings, "Assets/Resources/GameSettings.asset");
             }
 
-            Debug.Log($"pre:{settings.gamemode != null}");
+           // Debug.Log($"pre:{settings.gamemode != null}");
             // settings.gamemode = new GamemodeBase<>();
 
 

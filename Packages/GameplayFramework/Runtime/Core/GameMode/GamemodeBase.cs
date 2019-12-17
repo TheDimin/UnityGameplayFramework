@@ -33,16 +33,19 @@ namespace GameplayFramework.Core
             return (GetPlayerController(index) as PlayerControllerType);
         }
 
-        static internal void RegisterSpawn(SpawnPoint spawnPoint)
+        public static GameModeType Get<GameModeType>() where GameModeType : GamemodeBase
         {
-            gamemode.mapData.RegisterSpawnPoint(spawnPoint);
+            return gamemode as GameModeType;
         }
+
+      
 
 
         public void SpawnPlayer(PlayerControllerBase playercontroller)
         {
-            //get prefab
-            GameObject obj = GameObject.Instantiate(Game.GetGameDefaults().PlayerPawn);
+            return;
+            // get prefab
+            GameObject obj = null;// GameObject.Instantiate(Game.GetGameDefaults().PlayerPawn);
             PawnBase pawn = obj.GetComponent<PawnBase>();
             playercontroller.Posses(pawn);
 
@@ -50,8 +53,8 @@ namespace GameplayFramework.Core
             if (mapData.FindSpawnPointForPawn(pawn, out pawnSpawnLocation))
             {
                 Transform spawnTransform = pawnSpawnLocation.GetSpawnPoint;
-                obj.transform.position = spawnTransform.position;
-                obj.transform.rotation = spawnTransform.rotation;
+            //    obj.transform.position = spawnTransform.position;
+          //      obj.transform.rotation = spawnTransform.rotation;
             }
         }
 
@@ -59,13 +62,17 @@ namespace GameplayFramework.Core
         {
             mapData.CollectGarbage();
         }
+        
+        
         internal void Start()
         {
             SceneManager.sceneUnloaded += OnSceneUnloaded;
             mapData = new MapData();
             gamemode = this;
         }
-
-
+        internal static void RegisterSpawn(SpawnPoint spawnPoint)
+        {
+            gamemode.mapData.RegisterSpawnPoint(spawnPoint);
+        }
     }
 }

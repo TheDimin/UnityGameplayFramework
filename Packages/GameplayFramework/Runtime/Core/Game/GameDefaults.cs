@@ -13,11 +13,24 @@ namespace GameplayFramework.Core
     /// </summary>
     public class GameDefaults : ScriptableObject
     {
+        public struct LevelSettings
+        {
+            [SerializeField]
+            public GamemodeBase gamemode;
+
+            [SerializeField]
+            public GameObject PlayerPawn;  
+        }
+
+        /// <summary>
+        /// Config for a level
+        /// key is the level name 
+        /// value are the settings for this level
+        /// </summary>
         [SerializeField]
-        public GamemodeBase gamemode;
+        public Dictionary<string,LevelSettings> levels;
 
-        public GameObject PlayerPawn;
-
+        [SerializeField]
         //TODO editor window
         public string MainMenuScene;
     }
