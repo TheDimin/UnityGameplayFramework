@@ -1,0 +1,17 @@
+{
+    "name": "com.thedimin.gf.editor",
+    "references": [
+        "GUID:58271b08575844747a243848d9a12e31"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
