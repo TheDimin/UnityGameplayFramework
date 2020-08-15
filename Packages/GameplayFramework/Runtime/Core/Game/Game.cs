@@ -37,7 +37,7 @@ namespace GameplayFramework.Core.Internal
         /// <summary>
         /// Start point of the Gameplay framework create the game instance.
         /// </summary>
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
+        //[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
         private static void Init()
         {
             Debug.Log("AssembliesLoaded");

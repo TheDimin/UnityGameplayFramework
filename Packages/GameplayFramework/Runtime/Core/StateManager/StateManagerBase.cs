@@ -16,15 +16,15 @@ namespace GameplayFramework.State
         protected List<GameStateType> registerdStates = new List<GameStateType>();
         protected GameStateType currentState;
 
+        /// <summary>
+        /// Update State loop and current state
+        /// </summary>
         public virtual void Update()
         {
             if (currentState != null)
             {
                 if (currentState.CanExit())
                 {
-
-                    Debug.Log("exiting: " + currentState.ToString());
-
                     for (int i = 0; i < registerdStates.Count; i++)
                     {
                         if (registerdStates[i] != currentState)
@@ -45,7 +45,10 @@ namespace GameplayFramework.State
             }
         }
 
-
+        /// <summary>
+        /// Adds a new state to the statemanager
+        /// </summary>
+        /// <param name="stateBase"></param>
         public virtual void RegisterState(GameStateType stateBase)
         {
             if (!registerdStates.Contains(stateBase))
@@ -60,6 +63,10 @@ namespace GameplayFramework.State
             }
         }
 
+        /// <summary>
+        /// Force the state to enter specific state
+        /// </summary>
+        /// <param name="newActivestate"></param>
         protected virtual void SetCurrentState(GameStateType newActivestate)
         {
             if (newActivestate == null) return;
@@ -72,12 +79,30 @@ namespace GameplayFramework.State
 
             OnStateChangeEvent?.Invoke(currentState);
 
-            Debug.Log($"[{this.ToString()}]: Changed state to '{currentState.ToString()}'");
+            Debug.Log($"[{ToString()}]: Changed state to '{currentState}'");
         }
 
+        /// <summary>
+        /// Returns the currently Active state
+        /// </summary>
+        /// <returns></returns>
         public GameStateType GetState()
         {
             return currentState;
+        }
+
+        /// <summary>
+        /// Function will be called when a new state is enterdt
+        /// </summary>
+        /// <param name="action"></param>
+        public void BindOnStateChange(GameStateChangeHandler action)
+        {
+            OnStateChangeEvent += action;
+        }
+        
+        public void RemoveOnStateChangeBind(GameStateChangeHandler action)
+        {
+            OnStateChangeEvent -= action;
         }
 
         /// <summary>
@@ -106,9 +131,6 @@ namespace GameplayFramework.State
                     }
                 }
             }
-            
-
-
             return null;
         }
     }

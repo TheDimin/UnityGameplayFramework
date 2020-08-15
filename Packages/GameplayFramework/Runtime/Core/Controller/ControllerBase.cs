@@ -6,11 +6,11 @@ namespace GameplayFramework.Core
 {
     public abstract class ControllerBase
     {
-        private PawnBase possedPawn;
-
-        public ControllerBase()
+        public PawnBase possedPawn;
+        public int Id = 0;
+        protected ControllerBase(int id)
         {
-            
+            Id = id;
         }
 
         public abstract void Awake();

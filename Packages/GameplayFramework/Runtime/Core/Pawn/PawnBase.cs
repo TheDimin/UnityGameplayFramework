@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace GameplayFramework.Core
 {
-    public abstract class PawnBase : MonoBehaviour
+    public abstract class PawnBase: MonoBehaviour
     {
 
         protected new Camera camera { get; private set; }
-        private ControllerBase controller;
+        protected  ControllerBase controller { get; private set; }
 
         protected virtual void OnPossessed(ControllerBase controller) { }
 

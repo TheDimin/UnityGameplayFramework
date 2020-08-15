@@ -13,6 +13,7 @@ namespace GameplayFramework.Core
 
         private List<PlayerControllerBase> playercontrollers = new List<PlayerControllerBase>();
         private MapData mapData;
+        private GameObject PlayerPawn;
 
         public void RegisterPlayerController(PlayerControllerBase playerController)
         {
@@ -38,25 +39,51 @@ namespace GameplayFramework.Core
             return gamemode as GameModeType;
         }
 
-      
 
-
-        public void SpawnPlayer(PlayerControllerBase playercontroller)
+        public GamemodeBase(GameObject playerPawn)
         {
-            return;
+            gamemode = this;
+            this.PlayerPawn = playerPawn;
+        }
+
+        public GameObject SpawnPlayer(PlayerControllerBase playercontroller)
+        {
             // get prefab
-            GameObject obj = null;// GameObject.Instantiate(Game.GetGameDefaults().PlayerPawn);
-            PawnBase pawn = obj.GetComponent<PawnBase>();
+            GameObject newPawn = GameObject.Instantiate(PlayerPawn);
+            PawnBase pawn = newPawn.GetComponent<PawnBase>();
             playercontroller.Posses(pawn);
 
             SpawnPoint pawnSpawnLocation;
             if (mapData.FindSpawnPointForPawn(pawn, out pawnSpawnLocation))
             {
+                pawnSpawnLocation.spawncount++;
                 Transform spawnTransform = pawnSpawnLocation.GetSpawnPoint;
-            //    obj.transform.position = spawnTransform.position;
-          //      obj.transform.rotation = spawnTransform.rotation;
+                newPawn.transform.position = spawnTransform.position;
+                newPawn.transform.rotation = spawnTransform.rotation;
+            }
+
+            return newPawn;
+        }
+
+        public static void Respawn(PlayerControllerBase playercontroller)
+        {
+            PawnBase pawn = playercontroller.possedPawn.GetComponent<PawnBase>();
+            SpawnPoint pawnSpawnLocation;
+            if (gamemode.mapData.FindSpawnPointForPawn(pawn, out pawnSpawnLocation))
+            {
+                pawnSpawnLocation.spawncount++;
+                Transform spawnTransform = pawnSpawnLocation.GetSpawnPoint;
+                pawn.transform.position = spawnTransform.position;
+                pawn.transform.rotation = spawnTransform.rotation;
             }
         }
+
+
+        public static void MovePlayerToSpawn()
+        {
+
+        }
+
 
         private void OnSceneUnloaded(Scene scene)
         {
@@ -72,6 +99,9 @@ namespace GameplayFramework.Core
         }
         internal static void RegisterSpawn(SpawnPoint spawnPoint)
         {
+            if(gamemode.mapData == null)
+                gamemode.mapData = new MapData();
+
             gamemode.mapData.RegisterSpawnPoint(spawnPoint);
         }
     }

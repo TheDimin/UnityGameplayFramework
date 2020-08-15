@@ -6,10 +6,9 @@ namespace GameplayFramework.Core
 {
     public abstract class PlayerControllerBase : ControllerBase 
     {
-        public string Id { get; protected set; }
-        protected PlayerControllerBase(string id)
+        public PlayerControllerBase(int id) : base(id)
         {
-            Id = id;
+
         }
     }
 }

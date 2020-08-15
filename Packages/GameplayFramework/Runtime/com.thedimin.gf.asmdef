@@ -1,6 +1,8 @@
 {
     "name": "com.thedimin.gf",
-    "references": [],
+    "references": [
+        "GUID:cd491b194b93b214a8a80328457f114a"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": true,

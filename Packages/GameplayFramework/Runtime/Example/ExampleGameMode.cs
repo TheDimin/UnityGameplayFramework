@@ -5,7 +5,7 @@ using GameplayFramework.Core;
 
 public class ExampleGameMode : GamemodeBase
 {
-    public ExampleGameMode()
+    public ExampleGameMode(GameObject player) : base(player)
     {
     }
 }

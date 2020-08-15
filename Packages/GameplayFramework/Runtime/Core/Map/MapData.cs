@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,20 +14,43 @@ namespace GameplayFramework.Core
         {
             spawnPoints.Add(spawnPoint);
         }
+
+
         public bool FindSpawnPointForPawn(PawnBase pawn, out SpawnPoint spawnPoint)
         {
+            List<SpawnPoint> possibPoints = new List<SpawnPoint>();
+
             foreach (SpawnPoint PossibleSpawnPoint in spawnPoints)
             {
                 if (PossibleSpawnPoint.CanPawnSpawnAtPoint(pawn))
                 {
-                    spawnPoint = PossibleSpawnPoint;
-                    return true;
+                    possibPoints.Add(PossibleSpawnPoint);
                 }
             }
 
-            Debug.LogError($"Failed to find spawnpoint for '{pawn.ToString()}'");
-            spawnPoint = null;
-            return false;
+            if (possibPoints.Count == 0)
+            {
+                Debug.LogError($"Failed to find spawnpoint for '{pawn.ToString()}'");
+                spawnPoint = null;
+                return false;
+            }
+
+            SpawnPoint smallPoint = null;
+            foreach (var point in possibPoints)
+            {
+                if (smallPoint == null)
+                {
+                    smallPoint = point;
+                    continue;
+                }
+
+                if (smallPoint.spawncount > point.spawncount)
+                    smallPoint = point;
+            }
+
+            spawnPoint = smallPoint;
+
+            return true;
         }
 
         /// <summary>

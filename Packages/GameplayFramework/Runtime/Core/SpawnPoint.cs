@@ -18,6 +18,8 @@ namespace GameplayFramework.Core
     {
         public Transform GetSpawnPoint => transform;
 
+        [HideInInspector]
+        public int spawncount = 0;
         /// <summary>
         /// Checks if the given pawn is allowed to spawn at this location
         /// With inheritance you can modify the pawn requirements
